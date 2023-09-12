@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_sg_button_instance">
+    <sys_sg_button_instance action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <button display_value="Edit Button (Incident)">7ea8296c971131106afaf207f053afd8</button>
+        <color_theme/>
+        <description/>
+        <disable_offline>false</disable_offline>
+        <field_name/>
+        <icon/>
+        <label>Edit</label>
+        <location>top</location>
+        <name>Edit (Incident)</name>
+        <order/>
+        <parent>fea8296c971131106afaf207f053afb1</parent>
+        <parent_table>sys_sg_form_screen</parent_table>
+        <sys_class_name>sys_sg_button_instance</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-09-12 08:29:17</sys_created_on>
+        <sys_id>baa8296c971131106afaf207f053afde</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Edit (Incident)</sys_name>
+        <sys_package display_value="Link GitHub to ServiceNow" source="x_1112549_link_git">1858ede8971131106afaf207f053af57</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Link GitHub to ServiceNow">1858ede8971131106afaf207f053af57</sys_scope>
+        <sys_update_name>sys_sg_button_instance_baa8296c971131106afaf207f053afde</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-09-12 08:29:17</sys_updated_on>
+        <table/>
+    </sys_sg_button_instance>
+    <sys_translated_text action="delete_multiple" query="documentkey=baa8296c971131106afaf207f053afde"/>
+</record_update>
