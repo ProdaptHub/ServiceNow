@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ws_operation">
+    <sys_ws_operation action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <consumes>application/json,application/xml,text/xml</consumes>
+        <consumes_customized>false</consumes_customized>
+        <default_operation_uri/>
+        <enforce_acl>cf9d01d3e73003009d6247e603f6a990</enforce_acl>
+        <http_method>POST</http_method>
+        <name>Customer Creation Post Method</name>
+        <operation_script><![CDATA[(function process( /*RESTAPIRequest*/ request, /*RESTAPIResponse*/ response) {
+
+    // implement resource here
+
+    var req = request.body.data;
+    var status;
+    var statuscode;
+    var res = {};
+
+    var account = req.account;
+    var customer = req.customer;
+    var firstname = req.firstname;
+    var lastname = req.lastname;
+    var email = req.email;
+    var loc_name = req.name;
+    var loc_street = req.state;
+    var loc_city = req.city;
+    var loc_state = req.state;
+    var loc_zip = req.zip;
+    var loc_country = req.country;
+    var loc_fullname = req.name;
+
+
+    var userid;
+    var account_sysid;
+    var contact_sysid;
+    var loc_sysid;
+
+    var cust = new GlideRecord('customer_account');
+    //Checking for the Account whether already exists in the servicenow. 
+    cust.addQuery('name', account);
+    cust.addQuery('customer', customer);
+    cust.query();
+    if (cust.next()) {
+        account_sysid = cust.sys_id;
+    } else {
+        //Create new account if it is not exists		
+        cust.initialize();
+        cust.name = account;
+        cust.customer = customer;
+        cust.insert();
+        account_sysid = cust.sys_id;
+    }
+
+
+    var cont = new GlideRecord('customer_contact');
+    //Checking for the contact exists or not in the contact table
+    cont.addQuery('user_name', userid);
+    cont.query();
+    if (cont.next()) {
+        contact_sysid = cont.sys_id;
+
+    } else {
+        cont.initialize();
+        cont.first_name = firstname;
+        cont.last_name = lastname;
+		cont.email = email;
+        cont.account = account_sysid;
+        cont.insert();
+        contact_sysid = cont.sys_id;
+
+    }
+
+    var loc = new GlideRecord('cmn_location');
+    loc.initialize();
+    loc.name = loc_name;
+    loc.street = loc_street;
+    loc.city = loc_city;
+    loc.state = loc_state;
+    loc.zip = loc_zip;
+    loc.country = loc_country;
+    loc.full_name = loc_fullname;
+    loc.u_account = account_sysid;
+    loc.contact = contact_sysid;
+    loc.insert();
+    loc_sysid = loc.sys_id;
+
+
+	var acc_rel = new GlideRecord('account_address_relationship');
+	acc_rel.initialize();
+	acc_rel.account = account_sysid;
+	acc_rel.location = loc_sysid;
+	acc_rel.insert();
+
+    res.number = cust.number;
+    res.Account_sysid = account_sysid;
+    res.Contact_sysid = contact_sysid;
+    res.Location_sysid = loc_sysid;
+    status = "Success";
+    statuscode = "200";
+
+
+    res.status = status;
+    response.setBody(res);
+    response.setStatus(statuscode);
+
+
+})(request, response);]]></operation_script>
+        <operation_uri>/api/x_1112549_link_git/customer_creation</operation_uri>
+        <produces>application/json,application/xml,text/xml</produces>
+        <produces_customized>false</produces_customized>
+        <relative_path>/</relative_path>
+        <request_example/>
+        <requires_acl_authorization>true</requires_acl_authorization>
+        <requires_authentication>true</requires_authentication>
+        <requires_snc_internal_role>true</requires_snc_internal_role>
+        <short_description/>
+        <sys_class_name>sys_ws_operation</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-09-13 06:11:06</sys_created_on>
+        <sys_id>b942d6b0975131106afaf207f053af69</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Customer Creation Post Method</sys_name>
+        <sys_package display_value="Link GitHub to ServiceNow" source="x_1112549_link_git">1858ede8971131106afaf207f053af57</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Link GitHub to ServiceNow">1858ede8971131106afaf207f053af57</sys_scope>
+        <sys_update_name>sys_ws_operation_b942d6b0975131106afaf207f053af69</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-09-13 06:11:06</sys_updated_on>
+        <web_service_definition display_value="Customer Creation">8fc1de70975131106afaf207f053afb3</web_service_definition>
+        <web_service_version/>
+    </sys_ws_operation>
+</record_update>
